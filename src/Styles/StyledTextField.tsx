@@ -18,7 +18,7 @@ const StyledTextFieldNoChanges = styled(TextField)(({ theme }) => ({
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
-    marginTop: "10px",
+    marginTop: "14px",
     transition: "all 0.3s ease-in-out",
     "&:hover .MuiOutlinedInput-notchedOutline": {
       borderColor: theme.palette.primary.main,
@@ -35,7 +35,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     width: "100%",
     transformOrigin: "left top",
     "&.MuiInputLabel-shrink": {
-      transform: "translate(8px, -10px) scale(0.75)",
+      transform: "translate(10px, -10px) scale(0.75)",
       maxWidth: "133%",
       height: "auto",
       padding: "0 6px",
@@ -54,7 +54,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
       fontSize: "0.9rem",
       "&.MuiInputLabel-shrink": {
         fontSize: "0.75rem",
-        transform: "translate(8px, -10px) scale(0.75)",
+        transform: "translate(10px, -10px) scale(0.75)",
       },
     },
   },
