@@ -1,8 +1,6 @@
 import React from "react";
 import {
   Container,
-  Card,
-  CardContent,
   Typography,
   Box,
   useTheme,
@@ -26,6 +24,7 @@ import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
 } from "@mui/icons-material";
+import FeatureCard from './FeatureCard.tsx'
 
 // Feature interface
 interface Feature {
@@ -38,7 +37,7 @@ const features: Feature[] = [
   {
     title: "Community-Centric Design",
     description:
-      "Organized discussions with predefined tech categories, subgroups, and upvoting for quality content.",
+      "Organized discussions with predefined tech categories, subgroups for quality content.",
     icon: People,
   },
   {
@@ -103,7 +102,7 @@ const features: Feature[] = [
   },
   {
     title: "Tool Integration",
-    description: "Cloud storage, GitHub support, and APIs for custom apps.",
+    description: "Cloud storage, GitHub support, and APIs Integrations for custom apps.",
     icon: IntegrationInstructions,
   },
 ];
@@ -140,114 +139,6 @@ const ScrollButton = styled(IconButton)(({ theme }) => ({
   zIndex: 1,
 }));
 
-interface FeatureCardProps {
-  title: string;
-  description: string;
-  IconComponent: React.ElementType;
-}
-
-const FeatureCard: React.FC<FeatureCardProps> = ({
-  title,
-  description,
-  IconComponent,
-}) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  return (
-    <Card
-      sx={{
-        width: { xs: "280px", sm: "320px", md: "360px" },
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        position: "relative",
-        overflow: "hidden",
-        borderRadius: 4,
-        background: "rgba(255, 255, 255, 0.8)",
-        backdropFilter: "blur(10px)",
-        border: "1px solid rgba(255, 255, 255, 0.3)",
-        p: 3,
-        transition: "all 0.3s ease-in-out",
-        "&:hover": {
-          transform: isMobile ? "none" : "translateY(-8px)",
-          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
-          "& .icon-container": {
-            transform: "scale(1.1)",
-            background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-          },
-          "& .icon": {
-            color: "#fff",
-          },
-        },
-      }}
-    >
-      <Box
-        sx={{
-          position: "absolute",
-          top: -20,
-          right: -20,
-          width: "100px",
-          height: "100px",
-          background: `linear-gradient(45deg, ${theme.palette.primary.light}20, ${theme.palette.secondary.light}20)`,
-          borderRadius: "50%",
-          zIndex: 0,
-        }}
-      />
-      <Box
-        className="icon-container"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          mb: 3,
-          width: "80px",
-          height: "80px",
-          borderRadius: "20px",
-          background: theme.palette.grey[50],
-          transition: "all 0.3s ease-in-out",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        <IconComponent
-          className="icon"
-          sx={{
-            fontSize: 40,
-            color: theme.palette.primary.main,
-            transition: "all 0.3s ease-in-out",
-          }}
-        />
-      </Box>
-      <CardContent sx={{ p: 0, zIndex: 1 }}>
-        <Typography
-          variant="h6"
-          gutterBottom
-          sx={{
-            fontWeight: 600,
-            mb: 2,
-            background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            color: "transparent",
-          }}
-        >
-          {title}
-        </Typography>
-        <Typography
-          variant="body2"
-          sx={{
-            color: theme.palette.text.secondary,
-            lineHeight: 1.6,
-          }}
-        >
-          {description}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-};
 
 interface FeaturesGridProps {
   onClose: () => void;
@@ -338,6 +229,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
                 flexShrink: 1,
                 width: "100%", // Smaller width for mobile
                 height: "100%",
+                mx: 2,
               }}
             >
               <FeatureCard
@@ -435,8 +327,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
                 left: -20,
                 zIndex: 2,
                 "&:hover": {
-                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                  transform: "scale(1.1)", // Slight zoom on hover
+                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`, // Slight zoom on hover
                   "& .MuiSvgIcon-root": {
                     color: "white",
                   },
@@ -458,8 +349,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
                 right: -20,
                 zIndex: 2,
                 "&:hover": {
-                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                  transform: "scale(1.1)", // Slight zoom on hover
+                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`, // Slight zoom on hover
                   "& .MuiSvgIcon-root": {
                     color: "white",
                   },
@@ -478,6 +368,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
               sx={{
                 minWidth: { xs: "280px", sm: "320px", md: "360px" },
                 height: "100%",
+                mx:2,
               }}
             >
               <FeatureCard
@@ -488,6 +379,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
             </Box>
           ))}
         </ScrollContainer>
+        
         <Spacer />
         <IconButton
           sx={{
