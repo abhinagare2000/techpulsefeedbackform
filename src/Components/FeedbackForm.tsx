@@ -22,7 +22,7 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { Send as SendIcon, CheckCircle as CheckCircleIcon, DarkMode, LightMode } from "@mui/icons-material";
 import StyledCard from '../Styles/StyleCard';
-import StyledTextField from '../Styles/StyledTextField';
+import { StyledTextField, StyledTextFieldNoChanges } from '../Styles/StyledTextField';
 import FormData from '../InterFaces/FormData';
 
 const FeedbackForm: React.FC = () => {
@@ -207,7 +207,7 @@ const FeedbackForm: React.FC = () => {
                 margin: "0 auto",
               }}
             >
-              <StyledTextField
+              <StyledTextFieldNoChanges
                 label="Full Name"
                 placeholder="Enter your name"
                 value={formData.name}
@@ -217,7 +217,7 @@ const FeedbackForm: React.FC = () => {
                 variant="outlined"
               />
 
-              <StyledTextField
+              <StyledTextFieldNoChanges
                 label="Email Address"
                 placeholder="Enter your email"
                 type="email"
@@ -234,7 +234,7 @@ const FeedbackForm: React.FC = () => {
               />
 
               <Grid container spacing={2} alignItems="center">
-                <Grid item xs={4} sm={2}>
+                <Grid item xs={4} sm={3}>
                   <PhoneInput
                     international
                     defaultCountry="IN"
@@ -252,8 +252,8 @@ const FeedbackForm: React.FC = () => {
                   />
                 </Grid>
 
-                <Grid item xs={8} sm={10}>
-                  <StyledTextField
+                <Grid item xs={8} sm={9}>
+                  <StyledTextFieldNoChanges
                     label="Phone No"
                     variant="outlined"
                     value={formData.phoneNo}
@@ -295,7 +295,7 @@ const FeedbackForm: React.FC = () => {
                 <FormControlLabel value="High" control={<Radio />} label="High" />
               </RadioGroup>
 
-              <StyledTextField
+              <StyledTextFieldNoChanges
                 label="Your Feedback"
                 placeholder="Tell us what you think"
                 value={formData.feedback}
