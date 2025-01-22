@@ -219,7 +219,7 @@ const FeedbackForm: React.FC = () => {
       international
       defaultCountry="IN" // India country code
       value={formData.phone}
-      onChange={(phone) => setFormData({ ...formData, phone })}
+      onChange={(phone) => setFormData({ ...formData, phone: phone || '' })}
       style={{
         width: '100%',
         height: '50px', // Set height to 50px
@@ -277,7 +277,11 @@ const FeedbackForm: React.FC = () => {
 
               {/* Features Section */}
               <StyledTextField
-                label="What features do you think are most important for an online community platform?"
+                label={
+    <span style={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+      What features do you think are most important for an online community platform?
+    </span>
+  }
                 placeholder="E.g. instant messaging, voice/video chat, community discussion, content sharing, etc."
                 value={formData.features}
                 onChange={(e) => setFormData({ ...formData, features: e.target.value })}
@@ -289,7 +293,11 @@ const FeedbackForm: React.FC = () => {
 
               {/* Communities Section */}
               <StyledTextField
-                label="What kind of communities or groups would you like to be part of?"
+                label={
+    <span style={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+      What kind of communities or groups would you like to be part of?
+    </span>
+  }
                 placeholder="E.g., Artificial Intelligence, Software Engineering, Cyber Security, Blockchain Development, etc."
                 value={formData.communities}
                  onChange={(e) => setFormData({ ...formData, communities: e.target.value })}
@@ -315,7 +323,11 @@ const FeedbackForm: React.FC = () => {
 
               {/* Other Sections */}
               <StyledTextField
-                label="Would you like to see features that help in organizing or managing communities or groups?"
+                label={
+    <span style={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+      Would you like to see features that help in organizing or managing communities or groups?
+    </span>
+  }
                 value={formData.organizingFeatures}
                 onChange={(e) => setFormData({ ...formData, organizingFeatures: e.target.value })}
                 fullWidth
@@ -325,7 +337,11 @@ const FeedbackForm: React.FC = () => {
               />
 
               <StyledTextField
-                label="What motivates you to stay active and engaged in a community?"
+                label={
+    <span style={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+      What motivates you to stay active and engaged in a community?
+    </span>
+  }
                 value={formData.motivations}
                 onChange={(e) => setFormData({ ...formData, motivations: e.target.value })}
                 fullWidth
@@ -335,7 +351,11 @@ const FeedbackForm: React.FC = () => {
               />
 
               <StyledTextField
-                label="Is there anything else you would like to see or expect from this platform?"
+                label={
+    <span style={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+      Is there anything else you would like to see or expect from this platform?
+    </span>
+  }
                 value={formData.additionalComments}
                 onChange={(e) => setFormData({ ...formData, additionalComments: e.target.value })}
                 fullWidth
@@ -350,7 +370,9 @@ const FeedbackForm: React.FC = () => {
               </Typography>
               <Slider
                 value={formData.satisfaction}
-                onChange={(e, value) => setFormData({ ...formData, satisfaction: value as number })}
+                onChange={(_, value) =>
+    setFormData({ ...formData, satisfaction: value as number })
+  }
                 min={10}
                 max={100}
                 step={10}

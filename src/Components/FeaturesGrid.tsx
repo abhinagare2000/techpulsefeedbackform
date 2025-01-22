@@ -314,7 +314,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
             fits your needs and enhances your digital connections.
           </Typography>
         </Box>
-
+        <Box sx={{ position: "relative" }}>
         <ScrollContainer
           ref={containerRef}
           sx={{
@@ -336,8 +336,8 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
               key={index}
               sx={{
                 flexShrink: 1,
-                width: "260px", // Smaller width for mobile
-                height: "250px",
+                width: "100%", // Smaller width for mobile
+                height: "100%",
               }}
             >
               <FeatureCard
@@ -345,7 +345,10 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
                 description={feature.description}
                 IconComponent={feature.icon}
               />
-              <Spacer />
+            </Box>
+          ))}
+        </ScrollContainer>
+        <Spacer />
               <IconButton
                 sx={{
                   background: "rgba(255, 255, 255, 0.8)",
@@ -366,9 +369,7 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
               >
                 Share Feedback
               </IconButton>
-            </Box>
-          ))}
-        </ScrollContainer>
+          </Box>
       </Container>
     );
   }
