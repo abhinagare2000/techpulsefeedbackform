@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from "react";
+import emailjs from '@emailjs/browser';
 import {
   Container,
   Box,
@@ -117,6 +118,27 @@ const FeedbackForm: React.FC = () => {
       // Simulate sending data to backend
       console.log("Submitting data:", formData);
       saveEmail(formData.email);
+      const dataToSend = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      phoneNo: formData.phoneNo,
+      feedback: formData.feedback,
+      features: formData.features,
+      communities: formData.communities,
+      importance: formData.importance,
+      organizingFeatures: formData.organizingFeatures,
+      motivations: formData.motivations,
+      additionalComments: formData.additionalComments,
+      satisfaction: formData.satisfaction,
+      subscribe: formData.subscribe,
+    };
+      await emailjs.send(
+        'service_533swr7', // Replace with your EmailJS service ID
+        'template_56bp0mi', // Replace with your EmailJS template ID
+        dataToSend,
+        'GqcG-qWTRU8OhepQW' // Replace with your EmailJS public key
+      );
       setShowSuccess(true);
       setFormData({
         name: "",
@@ -143,7 +165,7 @@ const FeedbackForm: React.FC = () => {
 
   return (
     <Container maxWidth="md" sx={{ minHeight: "100vh", display: "flex", alignItems: "center", py: { xs: 4, md: 8 } }}>
-      <StyledCard sx={{ width: "100%", p: { xs: 4, sm: 4 },backgroundColor: "#f5f5f5" }}>
+      <StyledCard sx={{ width: "100%", p: { xs: 4, sm: 4 }, backgroundColor: "#f5f5f5" }}>
         <Box sx={{ position: "relative", zIndex: 1 }}>
           <Typography
             variant={isMobile ? "h5" : "h4"}
@@ -191,73 +213,54 @@ const FeedbackForm: React.FC = () => {
 
               {/* Phone and Phone No (side by side) */}
               <Grid container spacing={2} alignItems="center">
-  {/* Country Code */}
+                {/* Country Code */}
   <Grid item xs={2}>
     <PhoneInput
-  international
-  defaultCountry="IN" // India country code
-  value={formData.phone}
-  onChange={(phone) => setFormData({ ...formData, phone })}
-  style={{
-    width: '100%',
-    height: '50px', // Set height to 50px
-    borderRadius: '4px',
-    backgroundColor: '#f5f5f5',
-    border: '1px solid #ccc',
-    padding: '0 10px', // Adjust padding for better spacing
-    fontSize: '14px',
-  }}
-  inputStyle={{
-    width: '100%',
-    height: '50px',
-    backgroundColor: '#f5f5f5', // Country code input background
-    borderRadius: '4px',
-    fontSize: '14px',
-    paddingLeft: '40px', // Ensure proper space for the country code
-  }}
-  buttonStyle={{
-    height: '50px', // Height of the country code button
-    backgroundColor: '#f5f5f5', // Country code background color
-    borderRadius: '4px',
-    color: 'black', // Text color for the country code
-    padding: '0 10px',
-  }}
-/>
-
-
+      international
+      defaultCountry="IN" // India country code
+      value={formData.phone}
+      onChange={(phone) => setFormData({ ...formData, phone })}
+      style={{
+        width: '100%',
+        height: '50px', // Set height to 50px
+        borderRadius: '4px',
+        backgroundColor: '#f5f5f5',
+        border: '1px solid #ccc',
+        padding: '0 10px', // Adjust padding for better spacing
+        fontSize: '14px',
+      }}
+    />
   </Grid>
 
-  {/* Phone Number */}
-  <Grid item xs={10}>
-    <StyledTextField
-  label="Phone No"
-  variant="outlined"
-  value={formData.phoneNo}
-  onChange={(e) => {
-    const phoneNumber = e.target.value;
 
-    // Only allow numeric input and limit the length to 10 digits
-    if (/^\d{0,10}$/.test(phoneNumber)) {
-      setFormData({ ...formData, phoneNo: phoneNumber });
-    }
-  }}
-  fullWidth
-  InputProps={{
-    style: {
-      backgroundColor: "#f5f5f5",
-      borderRadius: "4px",
-      height: "50px",  // Ensure consistent height
-    },
-    inputProps: {
-      maxLength: 10,  // Limit to 10 digits
-    },
-  }}
-/>
+                {/* Phone Number */}
+                <Grid item xs={10}>
+                  <StyledTextField
+                    label="Phone No"
+                    variant="outlined"
+                    value={formData.phoneNo}
+                    onChange={(e) => {
+                      const phoneNumber = e.target.value;
 
-  </Grid>
-</Grid>
-
-
+                      // Only allow numeric input and limit the length to 10 digits
+                      if (/^\d{0,10}$/.test(phoneNumber)) {
+                        setFormData({ ...formData, phoneNo: phoneNumber });
+                      }
+                    }}
+                    fullWidth
+                    InputProps={{
+                      style: {
+                        backgroundColor: "#f5f5f5",
+                        borderRadius: "4px",
+                        height: "50px",  // Ensure consistent height
+                      },
+                      inputProps: {
+                        maxLength: 10,  // Limit to 10 digits
+                      },
+                    }}
+                  />
+                </Grid>
+              </Grid>
 
               {/* Feedback Section */}
               <StyledTextField
@@ -289,7 +292,7 @@ const FeedbackForm: React.FC = () => {
                 label="What kind of communities or groups would you like to be part of?"
                 placeholder="E.g., Artificial Intelligence, Software Engineering, Cyber Security, Blockchain Development, etc."
                 value={formData.communities}
-                onChange={(e) => setFormData({ ...formData, communities: e.target.value })}
+                 onChange={(e) => setFormData({ ...formData, communities: e.target.value })}
                 fullWidth
                 multiline
                 rows={3}

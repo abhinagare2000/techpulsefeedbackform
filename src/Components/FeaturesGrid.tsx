@@ -23,7 +23,6 @@ import {
   Bolt,
   Event,
   IntegrationInstructions,
-  Close as CloseIcon,
   KeyboardArrowLeft,
   KeyboardArrowRight,
 } from "@mui/icons-material";
@@ -254,192 +253,221 @@ interface FeaturesGridProps {
   onClose: () => void;
 }
 
-const FeaturesGrid:React.FC<FeaturesGridProps> = ({ onClose }) => {
+const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onClose }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const containerRef = React.useRef<HTMLDivElement>(null);
 
-  const scroll = (direction: 'left' | 'right') => {
+  const scroll = (direction: "left" | "right") => {
     if (containerRef.current) {
-      const scrollAmount = direction === 'left' ? -400 : 400;
+      const scrollAmount = direction === "left" ? -400 : 400;
       containerRef.current.scrollLeft += scrollAmount;
     }
   };
-  const Spacer: React.FC<SpacerProps> = ({ height = '16px', width = '0' }) => {
-  return <div style={{ height, width }} />;
-};
+
+  const Spacer: React.FC<{ height?: string; width?: string }> = ({
+    height = "16px",
+    width = "0",
+  }) => {
+    return <div style={{ height, width }} />;
+  };
 
   if (isMobile) {
-  // Mobile-specific layout
+    // Mobile-specific layout
+    return (
+      <Container
+        maxWidth="xs"
+        sx={{
+          py: 2,
+          px: 2,
+        }}
+      >
+        <Box sx={{ position: "relative" }}>
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{
+              fontWeight: "bold",
+              mb: 2,
+              background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            We are developing an Innovative platform that will blend the best of
+            communication, community engagement and collaboration For Technology
+            Community into one seamless experience.
+          </Typography>
+
+          <Typography
+            variant="body1"
+            align="center"
+            sx={{
+              mb: 3,
+              background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Your insights are invaluable in helping us build a platform that
+            fits your needs and enhances your digital connections.
+          </Typography>
+        </Box>
+
+        <ScrollContainer
+          ref={containerRef}
+          sx={{
+            display: "flex",
+            gap: 2,
+            overflowX: "auto",
+            scrollbarWidth: "thin",
+            "&::-webkit-scrollbar": {
+              height: "6px",
+            },
+             "&::-webkit-scrollbar-thumb": {
+              background: theme.palette.primary.main,
+              borderRadius: "4px",
+            },
+          }}
+        >
+          {features.map((feature, index) => (
+            <Box
+              key={index}
+              sx={{
+                flexShrink: 1,
+                width: "260px", // Smaller width for mobile
+                height: "250px",
+              }}
+            >
+              <FeatureCard
+                title={feature.title}
+                description={feature.description}
+                IconComponent={feature.icon}
+              />
+              <Spacer />
+              <IconButton
+                sx={{
+                  background: "rgba(255, 255, 255, 0.8)",
+                  backdropFilter: "blur(8px)",
+                  border: "1px solid rgba(255, 255, 255, 0.3)",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                  transition: "all 0.3s ease-in-out",
+                  position: "absolute",
+                  left: "50%", // Centering horizontally
+                  transform: "translateX(-20%)", // Center the button
+                  zIndex: 2,
+                  borderRadius: "4px", // Optional, to give the button rounded corners
+                  "&:hover": {
+                    background: `linear-gradient(1deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`, // Slight scaling effect on hover
+                  },
+                }}
+                onClick={onClose} // Replace with your feedback handler
+              >
+                Share Feedback
+              </IconButton>
+            </Box>
+          ))}
+        </ScrollContainer>
+      </Container>
+    );
+  }
+
   return (
     <Container
-      maxWidth="xs"
+      maxWidth={false}
       sx={{
-        py: 2,
-        px: 2,
+        py: { xs: 2, sm: 3 },
+        px: { xs: 1, sm: 2, md: 4 },
+        position: "relative",
       }}
     >
-      <Box sx={{ position: 'relative' }}>
-
+      <Box sx={{ position: "relative" }}>
         <Typography
-          variant="h5"
+          variant={isMobile ? "h5" : "h4"}
           align="center"
           gutterBottom
           sx={{
-            fontWeight: 'bold',
-            mb: 2,
+            fontWeight: "bold",
+            mb: 1,
             background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            color: "transparent",
           }}
         >
-          We are developing an Innovative platform that will blend the best of communication, community engagement and collaboration For Technology Community into one seamless experience.
+          We are developing an Innovative platform that will bring the
+          Communication and Collaboration For Technology Community into one
+          seamless experience.
         </Typography>
 
         <Typography
-          variant="body1"
+          variant={isMobile ? "body1" : "h5"}
           align="center"
           sx={{
-            mb: 3,
+            mb: { xs: 3, sm: 4 },
             background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            color: "transparent",
           }}
         >
-          Your insights are invaluable in helping us build a platform that fits your needs and enhances your digital connections.
+          Your insights are invaluable in helping us build a platform that fits
+          your needs!
         </Typography>
       </Box>
 
-      <ScrollContainer
-        ref={containerRef}
-        sx={{
-          display: 'flex',
-          gap: 2,
-          overflowX: 'auto',
-          scrollbarWidth: 'thin',
-          '&::-webkit-scrollbar': {
-            height: '6px',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            background: theme.palette.primary.main,
-            borderRadius: '4px',
-          },
-        }}
-      >
-        {features.map((feature, index) => (
-          <Box
-            key={index}
-            sx={{
-              flexShrink: 1,
-              width: '250px', // Smaller width for mobile
-              height: '250px',
-            }}
-          >
-            <FeatureCard
-              title={feature.title}
-              description={feature.description}
-              IconComponent={feature.icon}
-            />
-          </Box>
-        ))}
-      </ScrollContainer>
-    </Container>
-  );
-}
-
-
-  return (
-    <Container maxWidth={false} sx={{ 
-      py: { xs: 2, sm: 3 },
-      px: { xs: 1, sm: 2, md: 4 },
-      position: 'relative',
-    }}>
-      <Box sx={{ position: 'relative' }}>
-        
-        
-        <Typography 
-          variant={isMobile ? "h5" : "h4"} 
-          align="center" 
-          gutterBottom 
-          sx={{ 
-            fontWeight: 'bold',
-            mb: 1,
-            background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            color: 'transparent',
-          }}
-        >
-          We are developing an Innovative platform that will bring the Communication and Collaboration For Technology Community into one seamless experience.
-        </Typography>
-
-<Typography 
-  variant={isMobile ? "body1" : "h5"} 
-  align="center" 
-  sx={{ 
-    mb: { xs: 3, sm: 4 },
-    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
-    color: 'transparent',
-  }}
->
-  Your insights are invaluable in helping us build a platform that fits your needs!
-</Typography>
-      </Box>
-
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: "relative" }}>
         {!isMobile && (
-         <>
-  <ScrollButton
-    onClick={() => scroll('left')}
-    sx={{
-      background: 'rgba(255, 255, 255, 0.9)',
-      backdropFilter: 'blur(8px)',
-      border: '1px solid rgba(255, 255, 255, 0.3)',
-      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-      transition: 'all 0.3s ease-in-out',
-      position: 'absolute',
-      left: -20,
-      zIndex: 2,
-      '&:hover': {
-        background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-        transform: 'scale(1.1)', // Slight zoom on hover
-        '& .MuiSvgIcon-root': {
-          color: 'white',
-        },
-      },
-    }}
-  >
-    <KeyboardArrowLeft />
-  </ScrollButton>
+          <>
+            <ScrollButton
+              onClick={() => scroll("left")}
+              sx={{
+                background: "rgba(255, 255, 255, 0.9)",
+                backdropFilter: "blur(8px)",
+                border: "1px solid rgba(255, 255, 255, 0.3)",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                transition: "all 0.3s ease-in-out",
+                position: "absolute",
+                left: -20,
+                zIndex: 2,
+                "&:hover": {
+                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                  transform: "scale(1.1)", // Slight zoom on hover
+                  "& .MuiSvgIcon-root": {
+                    color: "white",
+                  },
+                },
+              }}
+            >
+              <KeyboardArrowLeft />
+            </ScrollButton>
 
-  <ScrollButton
-    onClick={() => scroll('right')}
-    sx={{
-      background: 'rgba(255, 255, 255, 0.9)',
-      backdropFilter: 'blur(8px)',
-      border: '1px solid rgba(255, 255, 255, 0.3)',
-      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-      transition: 'all 0.3s ease-in-out',
-      position: 'absolute',
-      right: -20,
-      zIndex: 2,
-      '&:hover': {
-        background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-        transform: 'scale(1.1)', // Slight zoom on hover
-        '& .MuiSvgIcon-root': {
-          color: 'white',
-        },
-      },
-    }}
-  >
-    <KeyboardArrowRight />
-  </ScrollButton>
-</>
-
+            <ScrollButton
+              onClick={() => scroll("right")}
+              sx={{
+                background: "rgba(255, 255, 255, 0.9)",
+                backdropFilter: "blur(8px)",
+                border: "1px solid rgba(255, 255, 255, 0.3)",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                transition: "all 0.3s ease-in-out",
+                position: "absolute",
+                right: -20,
+                zIndex: 2,
+                "&:hover": {
+                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                  transform: "scale(1.1)", // Slight zoom on hover
+                  "& .MuiSvgIcon-root": {
+                    color: "white",
+                  },
+                },
+              }}
+            >
+              <KeyboardArrowRight />
+            </ScrollButton>
+          </>
         )}
 
         <ScrollContainer ref={containerRef}>
@@ -447,8 +475,8 @@ const FeaturesGrid:React.FC<FeaturesGridProps> = ({ onClose }) => {
             <Box
               key={index}
               sx={{
-                minWidth: { xs: '280px', sm: '320px', md: '360px' },
-                height: '100%',
+                minWidth: { xs: "280px", sm: "320px", md: "360px" },
+                height: "100%",
               }}
             >
               <FeatureCard
@@ -461,25 +489,25 @@ const FeaturesGrid:React.FC<FeaturesGridProps> = ({ onClose }) => {
         </ScrollContainer>
         <Spacer />
         <IconButton
-  sx={{
-    background: "rgba(255, 255, 255, 0.8)",
-    backdropFilter: 'blur(8px)',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    transition: 'all 0.3s ease-in-out',
-    position: 'absolute',
-    left: '50%', // Centering horizontallyst the bottom distance
-    transform: 'translateX(-20%)', // Center the button
-    zIndex: 2,
-    borderRadius: '4px', // Optional, to give the button rounded corners
-    '&:hover': {
-      background: `linear-gradient(1deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`, // Slight scaling effect on hover
-    }
-  }}
-  onClick={onClose} // Replace with your feedback handler
->
-  Share Feedback
-</IconButton>
+          sx={{
+            background: "rgba(255, 255, 255, 0.8)",
+            backdropFilter: "blur(8px)",
+            border: "1px solid rgba(255, 255, 255, 0.3)",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+            transition: "all 0.3s ease-in-out",
+            position: "absolute",
+            left: "50%", // Centering horizontally
+            transform: "translateX(-20%)", // Center the button
+            zIndex: 2,
+            borderRadius: "4px", // Optional, to give the button rounded corners
+            "&:hover": {
+              background: `linear-gradient(1deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`, // Slight scaling effect on hover
+            },
+          }}
+          onClick={onClose} // Replace with your feedback handler
+        >
+          Share Feedback
+        </IconButton>
       </Box>
     </Container>
   );
